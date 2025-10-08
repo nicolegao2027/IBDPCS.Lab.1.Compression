@@ -26,11 +26,50 @@ public class RLE {
     }
 
     /** TODO 1: Given a String (a genome sequence of COVID-19) implement the RLE algorithm that will use RLE to compress a String. Returns the compressed String. */
-    public static String compress(String uncompressed) { return null; }
+    public static String compress(String uncompressed) {
+        if(uncompressed==null||uncompressed.isEmpty()){
+            return "";
+        }
+        String result="";
+        int n=uncompressed.length();
+        int i=0;
+        while(i<n){
+            char a=uncompressed.charAt(i);
+            int count=1;
+            int j=i+1;
+            while(j<n&&uncompressed.charAt(j)==a){
+                count++;
+                j++;
+            }
+            result+=count;
+            result+=a;
+            i=j;
+        }
+        return result;
+    }
 
     /** TODO 2: Given a String (a genome sequence of COVID-19) implement the RLE algorithm that will use RLE to decompress a String. Returns the uncompressed String. */
     public static String decompress(String compressed) {
-        return null;
+        String result="";
+        String count="";
+        int n=compressed.length();
+        if(compressed==null||compressed.isEmpty()){
+            return "";
+        }
+        for (int i=0;i<compressed.length();i++){
+            char c=compressed.charAt(i);
+            if(Character.isDigit(c)){
+                count+=c;
+            }
+            else{
+                int counter=Integer.parseInt(count);
+                for(int j=0;j<counter;j++){
+                    result+=c;
+                }
+                count="";
+            }
+        }
+        return result;
     }
 
 
